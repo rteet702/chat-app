@@ -18,6 +18,9 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
                 clientSecret: process.env.GOOGLE_SECRET,
             }),
         ],
+        pages: {
+            signIn: "/login",
+        },
         debug: false,
     };
 
