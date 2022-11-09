@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import type { NextApiRequest, NextApiResponse } from "next";
 import Google from "next-auth/providers/google";
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (!process.env.GOOGLE_ID || !process.env.GOOGLE_SECRET) {
         return res
             .status(500)
@@ -23,5 +23,5 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
         debug: false,
     };
 
-    NextAuth(req, res, options);
+    await NextAuth(req, res, options);
 };
