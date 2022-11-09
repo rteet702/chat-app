@@ -11,6 +11,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     const options = {
+        secret: process.env.SECRET,
         providers: [
             Google({
                 clientId: process.env.GOOGLE_ID,
