@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import type { NextApiRequest, NextApiResponse } from "next";
 import Google from "next-auth/providers/google";
-import Credentials from "next-auth/providers/credentials";
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
     if (!process.env.GOOGLE_ID || !process.env.GOOGLE_SECRET) {

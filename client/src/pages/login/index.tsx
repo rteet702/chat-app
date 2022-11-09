@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import { InferGetServerSidePropsType } from "next";
-import { getProviders } from "next-auth/react";
+import { getProviders, useSession } from "next-auth/react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 
@@ -42,7 +42,11 @@ const LoginPage: NextPage = ({
                     return (
                         <div key={index}>
                             <button
-                                onClick={() => signIn(provider.id)}
+                                onClick={() =>
+                                    signIn(provider.id, {
+                                        callbackUrl: `${window.location.origin}/`,
+                                    })
+                                }
                                 className="w-full bg-neutral-600 bg-opacity-10 hover:bg-opacity-25 shadow-lg transition-colors py-3 rounded"
                             >
                                 Sign in with {provider.name}!
