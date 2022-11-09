@@ -1,8 +1,11 @@
 import { NextPage } from "next";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
     const { data: session } = useSession();
+    const router = useRouter();
+
     if (session) {
         const { user } = session;
         return (
@@ -26,7 +29,7 @@ const Home: NextPage = () => {
                     <h1 className="text-4xl text-center mb-6">Welcome!</h1>
                     <p>You are are not signed in.</p>
                     <button
-                        onClick={() => signIn()}
+                        onClick={() => router.push("/login")}
                         className="w-full bg-cyan-900 bg-opacity-50 hover:bg-opacity-90 p-3 mt-6 rounded-sm transition-all"
                     >
                         Login
