@@ -1,23 +1,37 @@
 import { NextPage } from "next";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { io } from "socket.io-client";
+import { useEffect, useState } from "react";
+import { io, Socket } from "socket.io-client";
 
 const Home: NextPage = () => {
     const { data: session } = useSession();
-    const ioClient = io("https://chatapp-teets-dev.herokuapp.com/");
+    const [socket, setSocket] = useState<any>();
     const router = useRouter();
 
     useEffect((): any => {
-        ioClient.connect();
+        const newSocket: Socket = io(
+            process.env.SOCKET_CLIENT || "http://localhost:8000/",
+            { autoConnect: false }
+        );
+        setSocket(newSocket);
 
-        ioClient.on("all_user_test", (property) => {
-            console.log("All user test recieved, ", property);
+        newSocket.on("connect", () => {
+            console.log(`Socket Connected`, newSocket.id);
         });
 
-        return () => ioClient.disconnect();
+        return () => {
+            newSocket.close();
+        };
     }, []);
+
+    const joinChat = (user: any) => {
+        socket.auth = {
+            name: user.name,
+            email: user.email,
+        };
+        socket.connect();
+    };
 
     // What the logged in user sees.
     if (session) {
@@ -28,17 +42,16 @@ const Home: NextPage = () => {
                     <h1 className="text-4xl text-center mb-6">Welcome!</h1>
                     <p>You are signed in as {user?.email}</p>
                     <button
+                        onClick={() => joinChat(user)}
+                        className="w-full bg-cyan-900 bg-opacity-50 hover:bg-opacity-90 p-3 mt-6 rounded-sm transition-all"
+                    >
+                        Join Chat
+                    </button>
+                    <button
                         onClick={() => signOut()}
                         className="w-full bg-cyan-900 bg-opacity-50 hover:bg-opacity-90 p-3 mt-6 rounded-sm transition-all"
                     >
                         Logout
-                    </button>
-                    <button
-                        onClick={() => {
-                            ioClient.emit("test");
-                        }}
-                    >
-                        Click for fuckery?
                     </button>
                 </div>
             </div>
