@@ -1,10 +1,25 @@
 import { NextPage } from "next";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { io } from "socket.io-client";
 
 const Home: NextPage = () => {
     const { data: session } = useSession();
+    const ioClient = io("https://chatapp-teets-dev.herokuapp.com/");
     const router = useRouter();
+
+    useEffect((): any => {
+        ioClient.connect();
+
+        ioClient.emit("test");
+
+        ioClient.on("all_user_test", (property) => {
+            console.log("All user test recieved, ", property);
+        });
+
+        return () => ioClient.disconnect();
+    }, []);
 
     // What the logged in user sees.
     if (session) {
