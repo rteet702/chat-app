@@ -13,6 +13,12 @@ body {
     background-color: black;
     @apply text-white;
 }
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
 @tailwind utilities;
 
 /* Change Autocomplete styles in Chrome*/
