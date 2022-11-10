@@ -1,9 +1,6 @@
 import NextAuth from "next-auth";
 import type { NextApiRequest, NextApiResponse } from "next";
 import Google from "next-auth/providers/google";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (!process.env.GOOGLE_ID || !process.env.GOOGLE_SECRET) {
