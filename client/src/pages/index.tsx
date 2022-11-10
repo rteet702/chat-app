@@ -13,8 +13,8 @@ const Home: NextPage = () => {
 
     useEffect((): any => {
         const newSocket: Socket = io(
-            // "https://chatapp-teets-dev.herokuapp.com/",
-            "http://localhost:8000/",
+            "https://chatapp-teets-dev.herokuapp.com/",
+            // "http://localhost:8000/",
             { autoConnect: false }
         );
         setSocket(newSocket);
@@ -53,7 +53,7 @@ const Home: NextPage = () => {
             <div className="flex items-center justify-center h-screen">
                 <div className="w-[500px] bg-neutral-800 bg-opacity-50 backdrop-blur-xl p-5 rounded shadow-2xl">
                     <h1 className="text-4xl text-center">Chat</h1>
-                    <div className="w-full h-[400px] bg-neutral-500 bg-opacity-30 mt-3 overflow-y-scroll scroll-smooth">
+                    <div className="w-full h-[400px] bg-neutral-500 bg-opacity-30 mt-3 overflow-y-scroll scroll-smooth auto">
                         {chat.map((message: any, index) => {
                             return (
                                 <div key={index}>
