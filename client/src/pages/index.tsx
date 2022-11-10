@@ -6,6 +6,7 @@ const Home: NextPage = () => {
     const { data: session } = useSession();
     const router = useRouter();
 
+    // What the logged in user sees.
     if (session) {
         const { user } = session;
         return (
@@ -22,7 +23,9 @@ const Home: NextPage = () => {
                 </div>
             </div>
         );
-    } else {
+    }
+    // What a logged out user sees.
+    else {
         return (
             <div className="flex items-center justify-center h-screen">
                 <div className="w-[500px] bg-neutral-800 bg-opacity-50 backdrop-blur-xl p-5 rounded shadow-2xl">
