@@ -12,8 +12,6 @@ const Home: NextPage = () => {
     useEffect((): any => {
         ioClient.connect();
 
-        ioClient.emit("test");
-
         ioClient.on("all_user_test", (property) => {
             console.log("All user test recieved, ", property);
         });
@@ -34,6 +32,13 @@ const Home: NextPage = () => {
                         className="w-full bg-cyan-900 bg-opacity-50 hover:bg-opacity-90 p-3 mt-6 rounded-sm transition-all"
                     >
                         Logout
+                    </button>
+                    <button
+                        onClick={() => {
+                            ioClient.emit("test");
+                        }}
+                    >
+                        Click for fuckery?
                     </button>
                 </div>
             </div>
