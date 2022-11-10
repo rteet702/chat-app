@@ -1,6 +1,9 @@
 import NextAuth from "next-auth";
 import type { NextApiRequest, NextApiResponse } from "next";
 import Google from "next-auth/providers/google";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (!process.env.GOOGLE_ID || !process.env.GOOGLE_SECRET) {
@@ -11,6 +14,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     const options = {
         secret: process.env.SECRET,
+        session: {
+            jwt: true,
+            maxAge: 30 * 24 * 60 * 60,
+        },
         providers: [
             Google({
                 clientId: process.env.GOOGLE_ID,

@@ -1,11 +1,25 @@
 import { NextPage } from "next";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { io } from "socket.io-client";
 
 const Home: NextPage = () => {
     const { data: session } = useSession();
+    const ioClient = io("https://chatapp-teets-dev.herokuapp.com/");
     const router = useRouter();
 
+    useEffect((): any => {
+        ioClient.connect();
+
+        ioClient.on("all_user_test", (property) => {
+            console.log("All user test recieved, ", property);
+        });
+
+        return () => ioClient.disconnect();
+    }, []);
+
+    // What the logged in user sees.
     if (session) {
         const { user } = session;
         return (
@@ -19,10 +33,19 @@ const Home: NextPage = () => {
                     >
                         Logout
                     </button>
+                    <button
+                        onClick={() => {
+                            ioClient.emit("test");
+                        }}
+                    >
+                        Click for fuckery?
+                    </button>
                 </div>
             </div>
         );
-    } else {
+    }
+    // What a logged out user sees.
+    else {
         return (
             <div className="flex items-center justify-center h-screen">
                 <div className="w-[500px] bg-neutral-800 bg-opacity-50 backdrop-blur-xl p-5 rounded shadow-2xl">
