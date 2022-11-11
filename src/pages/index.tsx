@@ -14,8 +14,8 @@ const Home: NextPage = () => {
 
     useEffect((): any => {
         const newSocket: Socket = io(
-            // "https://chatapp-teets-dev.herokuapp.com/",
-            "http://localhost:8000/",
+            "https://chatapp-teets-dev.herokuapp.com/",
+            // "http://localhost:8000/",
             { autoConnect: false }
         );
         setSocket(newSocket);
