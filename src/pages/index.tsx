@@ -15,8 +15,8 @@ const Home: NextPage = () => {
 
     useEffect((): any => {
         const newSocket: Socket = io(
-            "https://chatapp-teets-dev.herokuapp.com/",
-            // "http://localhost:8000/",
+            // "https://web-production-70fb.up.railway.app",
+            "http://localhost:8000/",
             { autoConnect: false }
         );
         setSocket(newSocket);
@@ -51,7 +51,11 @@ const Home: NextPage = () => {
     const handleSubmit = (e: any, user: any) => {
         e.preventDefault();
 
-        socket.emit("new_message", { content: message, author: user?.name });
+        socket.emit("new_message", {
+            content: message,
+            author: user?.name,
+            email: user?.email,
+        });
         setMessage("");
     };
 
@@ -77,15 +81,15 @@ const Home: NextPage = () => {
                                 className="w-full h-[400px] bg-neutral-500 bg-opacity-30 mt-3 overflow-y-scroll p-3 rounded-t flex flex-col"
                             >
                                 {chat.map((message: any, index) => {
-                                    if (message.author === user?.name) {
+                                    if (message.email === user?.email) {
                                         return (
                                             <div
                                                 key={index}
                                                 className="bg-cyan-900 text-right px-5  "
                                             >
                                                 {chat[index - 1] &&
-                                                chat[index - 1].author ===
-                                                    message.author ? null : (
+                                                chat[index - 1].email ===
+                                                    message.email ? null : (
                                                     <p className="font-bold text-xl">
                                                         {message.author}
                                                     </p>
