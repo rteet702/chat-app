@@ -104,8 +104,8 @@ const Home: NextPage = () => {
                                             className="bg-purple-900 px-5 first:pt-2 last:pb-2"
                                         >
                                             {chat[index - 1] &&
-                                            chat[index - 1].author ===
-                                                message.author ? null : (
+                                            chat[index - 1].email ===
+                                                message.email ? null : (
                                                 <p className="font-bold text-xl">
                                                     {message.author}
                                                 </p>
