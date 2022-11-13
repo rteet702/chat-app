@@ -1,4 +1,4 @@
-import { Ref, useState } from "react";
+import { FormEvent, Ref, useState } from "react";
 import Message from "./Message";
 import MessageForm from "./MessageForm";
 import { Socket } from "socket.io";
