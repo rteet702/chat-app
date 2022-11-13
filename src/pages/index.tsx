@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Message from "../components/Message";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
@@ -78,40 +79,16 @@ const Home: NextPage = () => {
                         <div className="flex-[3]">
                             <div
                                 ref={chatRef}
-                                className="w-full h-[400px] bg-neutral-500 bg-opacity-30 mt-3 overflow-y-scroll p-3 rounded-t flex flex-col"
+                                className="w-full h-[400px] bg-neutral-500 bg-opacity-30 mt-3 overflow-y-scroll p-3 rounded-t flex flex-col gap-3"
                             >
                                 {chat.map((message: any, index) => {
-                                    if (message.email === user?.email) {
-                                        return (
-                                            <div
-                                                key={index}
-                                                className="bg-cyan-900 text-right px-5  "
-                                            >
-                                                {chat[index - 1] &&
-                                                chat[index - 1].email ===
-                                                    message.email ? null : (
-                                                    <p className="font-bold text-xl">
-                                                        {message.author}
-                                                    </p>
-                                                )}
-                                                <p>{message.content}</p>
-                                            </div>
-                                        );
-                                    }
                                     return (
-                                        <div
-                                            key={index}
-                                            className="bg-purple-900 px-5 first:pt-2 last:pb-2"
-                                        >
-                                            {chat[index - 1] &&
-                                            chat[index - 1].email ===
-                                                message.email ? null : (
-                                                <p className="font-bold text-xl">
-                                                    {message.author}
-                                                </p>
-                                            )}
-                                            <p>{message.content}</p>
-                                        </div>
+                                        <Message
+                                            name={message.author}
+                                            email={message.email}
+                                            content={message.content}
+                                            loggedInUser={user?.email}
+                                        />
                                     );
                                 })}
                             </div>
