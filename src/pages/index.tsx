@@ -1,5 +1,7 @@
 import { NextPage } from "next";
 import Message from "../components/Message";
+import OnlineUsers from "@components/OnlineUsers";
+import MessageForm from "@components/MessageForm";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
@@ -93,38 +95,15 @@ const Home: NextPage = () => {
                                     );
                                 })}
                             </div>
-                            <form
-                                className="flex"
-                                onSubmit={(e) => handleSubmit(e, user)}
-                            >
-                                <input
-                                    type="text"
-                                    name="content"
-                                    value={message}
-                                    onChange={(e) => setMessage(e.target.value)}
-                                    className="p-3 bg-neutral-500 bg-opacity-10 flex-[3] rounded-bl"
-                                />
-                                <button
-                                    type="submit"
-                                    className="bg-purple-900 bg-opacity-20 hover:bg-opacity-40 transition-colors flex-1 rounded-br"
-                                >
-                                    Send
-                                </button>
-                            </form>
+                            <MessageForm
+                                handleSubmit={(e: any) => handleSubmit(e, user)}
+                                loggedInUser={user}
+                                message={message}
+                                setMessage={setMessage}
+                            />
                         </div>
                         {/* sidebar with online users */}
-                        <div className="flex-1 mt-3 h-[400px] overflow-y-scroll flex flex-col gap-3">
-                            {onlineUsers.map((user, index) => {
-                                return (
-                                    <div
-                                        key={index}
-                                        className="rounded px-5 py-2 bg-neutral-500 bg-opacity-30"
-                                    >
-                                        {user.name}
-                                    </div>
-                                );
-                            })}
-                        </div>
+                        <OnlineUsers onlineUsers={onlineUsers} />
                     </div>
                     {/* logout button */}
                     <button
