@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
-
+* {
+    box-sizing: border-box;
+}
 html,
 body {
     height: 100%;
@@ -11,7 +13,7 @@ body {
     background: radial-gradient(circle at top left, #190327, transparent),
         radial-gradient(circle at bottom right, #02172b, transparent);
     background-color: black;
-    @apply text-white;
+    @apply text-white bg-fixed;
 }
 
 ::-webkit-scrollbar {

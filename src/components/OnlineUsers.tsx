@@ -12,7 +12,7 @@ const OnlineUsers = (props: Props) => {
 
     if (onlineUsers.length > 0) {
         return (
-            <div className="flex-1 mt-3 h-[400px] overflow-y-scroll flex flex-col gap-3">
+            <div className="flex-[1] h-full overflow-y-scroll flex flex-col gap-3">
                 {onlineUsers.map((user, index) => {
                     return (
                         <div
@@ -26,11 +26,7 @@ const OnlineUsers = (props: Props) => {
             </div>
         );
     }
-    return (
-        <div className="flex-1 mt-3 h-[400px] overflow-y-scroll flex flex-col gap-3">
-            <p>No users online...</p>
-        </div>
-    );
+    return <p>No users online...</p>;
 };
 
 export default OnlineUsers;

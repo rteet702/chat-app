@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 interface Props {
     handleSubmit: CallableFunction;
     setMessage: CallableFunction;
@@ -14,7 +16,7 @@ type User =
     | undefined;
 
 const MessageForm = (props: Props) => {
-    const { handleSubmit, setMessage, message, loggedInUser } = props;
+    const { handleSubmit, message, setMessage, loggedInUser } = props;
 
     if (message.trim().length > 0) {
         return (
