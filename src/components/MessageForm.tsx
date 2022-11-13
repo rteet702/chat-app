@@ -16,7 +16,7 @@ type User =
 const MessageForm = (props: Props) => {
     const { handleSubmit, setMessage, message, loggedInUser } = props;
 
-    if (message.length > 0) {
+    if (message.trim().length > 0) {
         return (
             <form
                 className="flex"
