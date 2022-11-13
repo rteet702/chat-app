@@ -84,6 +84,7 @@ const Home: NextPage = () => {
                                 {chat.map((message: any, index) => {
                                     return (
                                         <Message
+                                            key={index}
                                             name={message.author}
                                             email={message.email}
                                             content={message.content}
