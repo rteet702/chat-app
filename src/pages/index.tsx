@@ -63,61 +63,7 @@ const Home: NextPage = () => {
     };
 
     // What the logged in user sees.
-    if (session) {
-        const { user } = session;
-
-        socket.auth = {
-            name: user?.name,
-            email: user?.email,
-        };
-        socket.connect();
-
-        return (
-            <div className="flex items-center justify-center h-screen">
-                <div className="w-[900px] bg-neutral-800 bg-opacity-50 backdrop-blur-xl p-5 rounded shadow-2xl">
-                    <h1 className="text-4xl text-center">Chat</h1>
-                    {/* chat component */}
-                    <div className="flex gap-3">
-                        <div className="flex-[3]">
-                            <div
-                                ref={chatRef}
-                                className="w-full h-[400px] bg-neutral-500 bg-opacity-30 mt-3 overflow-y-scroll p-3 rounded-t flex flex-col gap-3"
-                            >
-                                {chat.map((message: any, index) => {
-                                    return (
-                                        <Message
-                                            key={index}
-                                            name={message.author}
-                                            email={message.email}
-                                            content={message.content}
-                                            loggedInUser={user?.email}
-                                        />
-                                    );
-                                })}
-                            </div>
-                            <MessageForm
-                                handleSubmit={(e: any) => handleSubmit(e, user)}
-                                loggedInUser={user}
-                                message={message}
-                                setMessage={setMessage}
-                            />
-                        </div>
-                        {/* sidebar with online users */}
-                        <OnlineUsers onlineUsers={onlineUsers} />
-                    </div>
-                    {/* logout button */}
-                    <button
-                        onClick={() => signOut()}
-                        className="w-full bg-cyan-900 bg-opacity-50 hover:bg-opacity-90 p-3 mt-6 rounded-sm transition-all"
-                    >
-                        Logout
-                    </button>
-                </div>
-            </div>
-        );
-    }
-    // What a logged out user sees.
-    else {
+    if (!session) {
         return (
             <div className="flex items-center justify-center h-screen">
                 <div className="w-[500px] bg-neutral-800 bg-opacity-50 backdrop-blur-xl p-5 rounded shadow-2xl">
@@ -133,6 +79,56 @@ const Home: NextPage = () => {
             </div>
         );
     }
+    const { user } = session;
+
+    socket.auth = {
+        name: user?.name,
+        email: user?.email,
+    };
+    socket.connect();
+    return (
+        <div className="flex items-center justify-center h-screen">
+            <div className="w-[900px] bg-neutral-800 bg-opacity-50 backdrop-blur-xl p-5 rounded shadow-2xl">
+                <h1 className="text-4xl text-center">Chat</h1>
+                {/* chat component */}
+                <div className="flex gap-3">
+                    <div className="flex-[3]">
+                        <div
+                            ref={chatRef}
+                            className="w-full h-[400px] bg-neutral-500 bg-opacity-30 mt-3 overflow-y-scroll p-3 rounded-t flex flex-col gap-3"
+                        >
+                            {chat.map((message: any, index) => {
+                                return (
+                                    <Message
+                                        key={index}
+                                        name={message.author}
+                                        email={message.email}
+                                        content={message.content}
+                                        loggedInUser={user?.email}
+                                    />
+                                );
+                            })}
+                        </div>
+                        <MessageForm
+                            handleSubmit={(e: any) => handleSubmit(e, user)}
+                            loggedInUser={user}
+                            message={message}
+                            setMessage={setMessage}
+                        />
+                    </div>
+                    {/* sidebar with online users */}
+                    <OnlineUsers onlineUsers={onlineUsers} />
+                </div>
+                {/* logout button */}
+                <button
+                    onClick={() => signOut()}
+                    className="w-full bg-cyan-900 bg-opacity-50 hover:bg-opacity-90 p-3 mt-6 rounded-sm transition-all"
+                >
+                    Logout
+                </button>
+            </div>
+        </div>
+    );
 };
 
 export default Home;
