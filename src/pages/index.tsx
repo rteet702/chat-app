@@ -15,8 +15,8 @@ const Home: NextPage = () => {
 
     useEffect((): any => {
         const newSocket: Socket = io(
-            // "https://web-production-70fb.up.railway.app",
-            "http://localhost:8000/",
+            "https://web-production-70fb.up.railway.app",
+            // "http://localhost:8000/",
             { autoConnect: false }
         );
         setSocket(newSocket);
