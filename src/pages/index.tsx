@@ -81,7 +81,7 @@ const Home: NextPage = () => {
                                         return (
                                             <div
                                                 key={index}
-                                                className="bg-cyan-900 text-right px-5 first:pt-2 last:pb-2 "
+                                                className="bg-cyan-900 text-right px-5  "
                                             >
                                                 {chat[index - 1] &&
                                                 chat[index - 1].author ===
@@ -97,11 +97,15 @@ const Home: NextPage = () => {
                                     return (
                                         <div
                                             key={index}
-                                            className="bg-purple-900 px-5 py-2"
+                                            className="bg-purple-900 px-5 first:pt-2 last:pb-2"
                                         >
-                                            <p className="font-bold text-xl">
-                                                {message.author}
-                                            </p>
+                                            {chat[index - 1] &&
+                                            chat[index - 1].author ===
+                                                message.author ? null : (
+                                                <p className="font-bold text-xl">
+                                                    {message.author}
+                                                </p>
+                                            )}
                                             <p>{message.content}</p>
                                         </div>
                                     );
