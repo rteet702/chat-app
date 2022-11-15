@@ -1,7 +1,5 @@
 import { NextPage } from "next";
-import Message from "@components/Message";
 import OnlineUsers from "@components/OnlineUsers";
-import MessageForm from "@components/MessageForm";
 import Chat from "@components/Chat";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
